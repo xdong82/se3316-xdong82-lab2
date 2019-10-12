@@ -13,3 +13,9 @@ li{
     grid-template-columns: repeat(8,1fr);
     grid-gap: 0.5rem;
 }
+
+#basket{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-gap: 0.5rem;
+}

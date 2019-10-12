@@ -56,39 +56,74 @@ function signIn(){
 function addItems(){
     var items = document.getElementById('available-items');
 
-    for(var i = 0; i < 5; i++){
-        var item = document.createElement('li');
-        var text = document.createElement('p');
-        var due = document.createElement('p');
-        var image = document.createElement('img');
-        image.src = "rings.jpeg";
-        text.textContent = 'Lord of the Rings';
-        due.textContent = 'Due in 30 Days';
+    items.appendChild(createBook('Lord of the Rings'));
+    items.appendChild(createBook('Lord of the Rings'));
+    items.appendChild(createBook('Lord of the Rings'));
+    items.appendChild(createBook('Lord of the Rings'));
+    items.appendChild(createBook('Lord of the Rings'));
+    items.appendChild(createCD('The Best of Tyrone Davis'));
+    items.appendChild(createCD('The Best of Tyrone Davis'));
+    items.appendChild(createCD('The Best of Tyrone Davis'));
+    items.appendChild(createCD('The Best of Tyrone Davis'));
+    items.appendChild(createCD('The Best of Tyrone Davis'));
 
-        items.appendChild(item);
-
-        item.appendChild(image);
-        item.appendChild(text);
-        item.appendChild(due);
-    }
-
-    for(var i = 0; i < 5; i++){
-        var item = document.createElement('li');
-        var text = document.createElement('p');
-        var due = document.createElement('p');
-        var image = document.createElement('img');
-        image.src = "tyrone.jpeg";
-        text.textContent = 'The Best of Tyrone Davis';
-        due.textContent = 'Due in 10 Days';
-
-        items.appendChild(item);
-
-        item.appendChild(image);
-        item.appendChild(text);
-        item.appendChild(due);
-    }
+        
+        
+    
     
 
 
 }
 
+function createBook(name){
+    var item = document.createElement('li');
+    var text = document.createElement('p');
+    var due = document.createElement('p');
+    var image = document.createElement('img');
+    var addBtn = document.createElement('input');
+    
+
+    image.src = "rings.jpeg";
+    text.textContent = name;
+    due.textContent = 'Due in 30 Days';
+    addBtn.type = "button";
+    addBtn.value = 'Add';
+    addBtn.onclick = function() { addItem(item); };;
+
+
+    item.appendChild(image);
+    item.appendChild(text);
+    item.appendChild(due);
+    item.appendChild(addBtn);
+    return item;
+}
+
+function createCD(name){
+    var item = document.createElement('li');
+    var text = document.createElement('p');
+    var due = document.createElement('p');
+    var image = document.createElement('img');
+    var addBtn = document.createElement('input');
+
+    image.src = "tyrone.jpeg";
+    text.textContent = name;
+    due.textContent = 'Due in 10 Days';
+    addBtn.type = "button";
+    addBtn.value = 'Add';
+    addBtn.onclick = function() { addItem(item); };;
+
+
+    item.appendChild(image);
+    item.appendChild(text);
+    item.appendChild(due);
+    item.appendChild(addBtn);
+
+    return item;
+}
+
+
+
+function addItem(item){
+    var items = document.getElementById('basket');
+    items.appendChild(item);
+}
