@@ -47,7 +47,48 @@ function signIn(){
 
     info.appendChild(newInfo);
 
+    addItems();
+
 
     return true;
+}
+
+function addItems(){
+    var items = document.getElementById('available-items');
+
+    for(var i = 0; i < 5; i++){
+        var item = document.createElement('li');
+        var text = document.createElement('p');
+        var due = document.createElement('p');
+        var image = document.createElement('img');
+        image.src = "rings.jpeg";
+        text.textContent = 'Lord of the Rings';
+        due.textContent = 'Due in 30 Days';
+
+        items.appendChild(item);
+
+        item.appendChild(image);
+        item.appendChild(text);
+        item.appendChild(due);
+    }
+
+    for(var i = 0; i < 5; i++){
+        var item = document.createElement('li');
+        var text = document.createElement('p');
+        var due = document.createElement('p');
+        var image = document.createElement('img');
+        image.src = "tyrone.jpeg";
+        text.textContent = 'The Best of Tyrone Davis';
+        due.textContent = 'Due in 10 Days';
+
+        items.appendChild(item);
+
+        item.appendChild(image);
+        item.appendChild(text);
+        item.appendChild(due);
+    }
+    
+
+
 }
 

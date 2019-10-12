@@ -1,0 +1,15 @@
+img{
+    height: 300px;
+    width: 200px;
+}
+
+li{
+    text-align: center;
+    list-style: none;
+}
+
+#available-items{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-gap: 0.5rem;
+}
