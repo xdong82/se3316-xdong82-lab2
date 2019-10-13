@@ -53,7 +53,7 @@ function signIn(){
 function addItems(){
     var items = document.getElementById('available-items');
     var language = document.getElementById('language').value;
-    console.log(language);
+
     items.appendChild(createBook('Lord of the Rings', language));
     items.appendChild(createBook('Lord of the Rings', language));
     items.appendChild(createBook('Lord of the Rings', language));
@@ -76,7 +76,6 @@ function createBook(name, language){
     var image = document.createElement('img');
     var addBtn = document.createElement('input');
 
-    console.log(language);
     
     image.src = "rings.jpeg";
     image.id = "image";
@@ -85,7 +84,7 @@ function createBook(name, language){
     due.textContent = 'Due in 30 Days';
     addBtn.type = "button";
     addBtn.value = 'Add';
-    addBtn.onclick = function() { addItem(item); };;
+    addBtn.onclick = function() { addItem(item, image, addBtn, due); };;
 
 
     item.appendChild(image);
@@ -111,7 +110,7 @@ function createCD(name, language){
     due.textContent = 'Due in 10 Days';
     addBtn.type = "button";
     addBtn.value = 'Add';
-    addBtn.onclick = function() { addItem(item, image); };;
+    addBtn.onclick = function() { addItem(item, image, addBtn, due); };;
 
 
     item.appendChild(image);
@@ -182,10 +181,37 @@ function translateHindi(name){
     }
 }
 
-function addItem(item, image){
+function addItem(item, image, addBtn, due){
     var basket = document.getElementById('basket');
+    var returnDate = document.createElement('p');
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+
+    if(due.textContent == 'Due in 10 Days'){
+        returnDate.textContent = "Due in: " + addDays(today, 10);
+    }else{
+        returnDate.textContent = "Due in: " + addDays(today, 30);
+    }
+
+
+    item.removeChild(image);
+    item.removeChild(addBtn);
+    item.removeChild(due);
+
+    item.appendChild(returnDate);
+    
     basket.appendChild(item);
 
+}
+
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 }
 
 
