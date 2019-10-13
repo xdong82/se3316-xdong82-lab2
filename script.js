@@ -84,12 +84,11 @@ function createBook(name, language){
     due.textContent = 'Due in 30 Days';
     addBtn.type = "button";
     addBtn.value = 'Add';
-    addBtn.onclick = function() { addItem(item, image, addBtn, due); };;
+    addBtn.onclick = function() { addItem(item, image, addBtn, due, text, altText); };;
 
-
-    item.appendChild(image);
     item.appendChild(text);
     item.appendChild(altText);
+    item.appendChild(image);
     item.appendChild(due);
     item.appendChild(addBtn);
     return item;
@@ -112,10 +111,9 @@ function createCD(name, language){
     addBtn.value = 'Add';
     addBtn.onclick = function() { addItem(item, image, addBtn, due); };;
 
-
-    item.appendChild(image);
     item.appendChild(text);
     item.appendChild(altText);
+    item.appendChild(image);
     item.appendChild(due);
     item.appendChild(addBtn);
 
@@ -181,9 +179,11 @@ function translateHindi(name){
     }
 }
 
-function addItem(item, image, addBtn, due){
+function addItem(item, image, addBtn, due, text, altText){
     var basket = document.getElementById('basket');
     var returnDate = document.createElement('p');
+    var removeBtn = document.createElement('input');
+
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -197,14 +197,33 @@ function addItem(item, image, addBtn, due){
         returnDate.textContent = "Due in: " + addDays(today, 30);
     }
 
+    removeBtn.type = "button";
+    removeBtn.value = 'Remove';
+    removeBtn.onclick = function() { removeItem(item, image, addBtn, due, returnDate, removeBtn); };;
+
 
     item.removeChild(image);
     item.removeChild(addBtn);
     item.removeChild(due);
 
     item.appendChild(returnDate);
+    item.appendChild(removeBtn);
     
     basket.appendChild(item);
+
+}
+
+function removeItem(item, image, addBtn, due, returnDate, removeBtn){
+    var items = document.getElementById('available-items');
+
+    items.appendChild(item);
+
+    item.removeChild(returnDate);
+    item.removeChild(removeBtn);
+    
+    item.appendChild(image);
+    item.appendChild(due);
+    item.appendChild(addBtn)
 
 }
 
