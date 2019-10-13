@@ -14,7 +14,7 @@
         Name: <input type="text" id="name" maxlength="100">
         Email:  <input type="text" id="email">
         Year of birth: <input type="text" id="birthyear">
-        <input type="submit" value="Submit" onclick="ValidateCredentials( email, birthyear)">
+        <input type="submit" value="Submit" onclick="ValidateCredentials(email, birthyear); translateAll(language)">
     </div>
 
 <select data-placeholder="Choose a Language..." id='language' onclick="translateAll(language)">
@@ -35,5 +35,9 @@
     </ol>
     <h2>Checkout List:</h2>
     <ol id="basket"></ol>
+
+    <div id="admin">
+
+    </div>
 </body>
 </html>
