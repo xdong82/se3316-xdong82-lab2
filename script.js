@@ -23,6 +23,8 @@ function ValidateCredentials( email, birthyear)
 }
 
 function signIn(){
+    var checkoutBtn = document.createElement('input');
+    var basket = document.getElementById('basket');
     var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
     var birthyear = document.getElementById('birthyear').value;
@@ -32,7 +34,7 @@ function signIn(){
 
     while (info.firstChild) {
         info.removeChild(info.firstChild);
-      }
+    }
 
     var newInfo = document.createElement('p');
 
@@ -42,8 +44,12 @@ function signIn(){
         newInfo.textContent = name + ' (' + email + ') ' + '[Child]';
     }
 
-    info.appendChild(newInfo);
+    checkoutBtn.type = "button";
+    checkoutBtn.value = 'Checkout';
+    checkoutBtn.onclick = function() { checkout(basket); };;
 
+    info.appendChild(newInfo);
+    basket.appendChild(checkoutBtn);
 
 
 
@@ -54,16 +60,16 @@ function addItems(){
     var items = document.getElementById('available-items');
     var language = document.getElementById('language').value;
 
-    items.appendChild(createBook('Lord of the Rings', language));
-    items.appendChild(createBook('Lord of the Rings', language));
-    items.appendChild(createBook('Lord of the Rings', language));
-    items.appendChild(createBook('Lord of the Rings', language));
-    items.appendChild(createBook('Lord of the Rings', language));
-    items.appendChild(createCD('The Best of Tyrone Davis', language));
-    items.appendChild(createCD('The Best of Tyrone Davis', language));
-    items.appendChild(createCD('The Best of Tyrone Davis', language));
-    items.appendChild(createCD('The Best of Tyrone Davis', language));
-    items.appendChild(createCD('The Best of Tyrone Davis', language));
+    items.appendChild(createBook('Lord of the Rings'), language);
+    items.appendChild(createBook('Lord of the Rings'), language);
+    items.appendChild(createBook('Lord of the Rings'), language);
+    items.appendChild(createBook('Lord of the Rings'), language);
+    items.appendChild(createBook('Lord of the Rings'), language);
+    items.appendChild(createCD('The Best of Tyrone Davis'), language);
+    items.appendChild(createCD('The Best of Tyrone Davis'), language);
+    items.appendChild(createCD('The Best of Tyrone Davis'), language);
+    items.appendChild(createCD('The Best of Tyrone Davis'), language);
+    items.appendChild(createCD('The Best of Tyrone Davis'), language);
 
 
 }
@@ -76,7 +82,7 @@ function createBook(name, language){
     var image = document.createElement('img');
     var addBtn = document.createElement('input');
 
-    
+    item.id="item-book"
     image.src = "rings.jpeg";
     image.id = "image";
     text.textContent = name;
@@ -84,7 +90,7 @@ function createBook(name, language){
     due.textContent = 'Due in 30 Days';
     addBtn.type = "button";
     addBtn.value = 'Add';
-    addBtn.onclick = function() { addItem(item, image, addBtn, due, text, altText); };;
+    addBtn.onclick = function() { addItem(item, image, addBtn, due); };;
 
     item.appendChild(text);
     item.appendChild(altText);
@@ -102,6 +108,7 @@ function createCD(name, language){
     var image = document.createElement('img');
     var addBtn = document.createElement('input');
 
+    item.id="item-cd";
     image.src = "tyrone.jpeg";
     image.id = "image";
     text.textContent = name;
@@ -120,8 +127,12 @@ function createCD(name, language){
     return item;
 }
 
-function translateAll(){
-    var language = document.getElementById('language').value;
+function translateAll(language){
+    var items = document.getElementsByTagName('LI');
+    for (let item of items) {
+        item.childNodes[1].textContent = translate(item.childNodes[0].textContent, language.value);
+    }
+
 
 }
 
@@ -179,7 +190,7 @@ function translateHindi(name){
     }
 }
 
-function addItem(item, image, addBtn, due, text, altText){
+function addItem(item, image, addBtn, due){
     var basket = document.getElementById('basket');
     var returnDate = document.createElement('p');
     var removeBtn = document.createElement('input');
@@ -231,6 +242,32 @@ function addDays(date, days) {
     var result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
+}
+
+function checkout(basket){
+    var checkoutItems = document.getElementById('basket').getElementsByTagName('LI');
+    var language = document.getElementById('language').value;
+    var items = document.getElementById('available-items');
+
+    console.log(language);
+    console.log(basket.lastChild.childNodes[0].textContent);
+
+
+    if(confirm("Confirm checkout of: " + (checkoutItems.length) + " items?")){
+        while (basket.childNodes.length > 1) {
+            basket.removeChild(basket.lastChild);
+        }
+    }else{
+        while (basket.childNodes.length > 1) {
+            if(basket.lastChild.id == 'item-cd'){
+                items.appendChild(createCD(basket.lastChild.childNodes[0].textContent, language));
+            }else{
+                items.appendChild(createBook(basket.lastChild.childNodes[0].textContent, language));
+            }
+            basket.removeChild(basket.lastChild);
+        }
+    }
+
 }
 
 

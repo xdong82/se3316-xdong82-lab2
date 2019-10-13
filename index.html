@@ -14,14 +14,15 @@
         Name: <input type="text" id="name" maxlength="100">
         Email:  <input type="text" id="email">
         Year of birth: <input type="text" id="birthyear">
-        <select data-placeholder="Choose a Language..." id='language'>
-                <option value="AR">Arabic</option>
-                <option value='FR'>French</option>
-                <option value="ZH">Chinese (Mandarin)</option>
-                <option value="HI">Hindi</option>n>      
-        </select>
         <input type="submit" value="Submit" onclick="ValidateCredentials( email, birthyear)">
     </div>
+
+<select data-placeholder="Choose a Language..." id='language' onclick="translateAll(language)">
+    <option value='FR'>French</option>
+    <option value="AR">Arabic</option>
+    <option value="ZH">Chinese (Mandarin)</option>
+    <option value="HI">Hindi</option>n>      
+</select>
 
 
 
